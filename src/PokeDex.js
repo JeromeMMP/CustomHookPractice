@@ -16,14 +16,6 @@ function PokeDex() {
     );
     setPokemon(pokemon => [...pokemon, { ...response.data, id: uuid() }]);
   };
-
-  const [cards, setCards] = useState([]);
-  const addCard = async () => {
-    const response = await axios.get(
-      "https://deckofcardsapi.com/api/deck/new/draw/"
-    );
-    setCards(cards => [...cards, { ...response.data, id: uuid() }]);
-  };
   return (
     <div className="PokeDex">
       <div className="PokeDex-buttons">
