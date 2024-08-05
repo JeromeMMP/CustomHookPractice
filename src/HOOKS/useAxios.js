@@ -5,14 +5,17 @@ import axios from "axios";
 const useAxios = (key, url) => {
   const [responses, setResponses] = useLocalStorage(key);
   const [error, setError] = useState(null);
-  console.log(responses);
+ 
   const addCardToResponses = async (restOfUrl = "" ) => {
+  
     try {
-      const RESPONSE = await axios.get(`${url}${restOfUrl}`);
-      console.log(RESPONSE);
+      const response = restOfUrl === "" ? await axios.get(
+        `${url}`) : await axios.get(
+        `${url}${restOfUrl}/`
+      );
       setResponses(prevResponses => [
         ...prevResponses,
-        { ...RESPONSE.data, id: uuid() }
+        { ...response.data, id: uuid() }
       ]);
     } catch (ERROR) {
       setError(ERROR);
@@ -41,6 +44,5 @@ const useLocalStorage = (key, initialValue = []) => {
   return [value, setValue];
 };
 
-export default useLocalStorage;
+export default useAxios;
 
-export { useAxios, useLocalStorage };
